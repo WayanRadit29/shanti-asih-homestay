@@ -22,3 +22,8 @@ body {
 .facility-card:hover {
   transform: translateY(-5px);
 }
+
+.room-img {
+  height: 260px;
+  object-fit: cover;
+}
