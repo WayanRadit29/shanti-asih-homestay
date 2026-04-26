@@ -10,9 +10,13 @@
 </head>
 <body>
 
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">Shanti Asih Homestay</a>
+      <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
+        <img src="assets/images/logo.png" alt="Logo" class="logo-img me-2">
+        <span>Shanti Asih</span>
+      </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -28,6 +32,7 @@
     </div>
   </nav>
 
+  <!-- Header Section -->
   <section class="py-5 bg-light">
     <div class="container text-center">
       <h1 class="fw-bold">Daftar Kamar</h1>
@@ -35,69 +40,75 @@
 
       <div class="row justify-content-center mt-4">
         <div class="col-md-6">
-          <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari kamar...">
+          <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari kamar, contoh: standard, lantai, kolam, yoga...">
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Rooms Section -->
   <section class="py-5">
     <div class="container">
       <div class="row g-4" id="roomList">
 
-        <div class="col-md-6 room-item" data-name="standard room lantai satu">
+        <div class="col-md-6 room-item" data-name="standard room 1 lantai satu kamar ac wifi kamar mandi dalam kolam renang">
           <div class="card h-100 shadow-sm">
             <img src="assets/images/room-1.jpg" class="card-img-top room-img" alt="Standard Room 1">
             <div class="card-body">
               <h5 class="card-title fw-bold">Standard Room 1</h5>
               <p class="card-text">Kamar nyaman dengan AC, WiFi, kamar mandi dalam, dan akses ke kolam renang.</p>
               <p class="fw-bold">Rp350.000 / malam</p>
-              <a href="detail.html" class="btn btn-dark">Lihat Detail</a>
+              <a href="detail.html" class="btn btn-main">Lihat Detail</a>
             </div>
           </div>
         </div>
 
-        <div class="col-md-6 room-item" data-name="standard room lantai dua">
+        <div class="col-md-6 room-item" data-name="standard room 2 lantai dua kamar ac wifi kamar mandi dalam suasana tenang">
           <div class="card h-100 shadow-sm">
             <img src="assets/images/room-2.jpg" class="card-img-top room-img" alt="Standard Room 2">
             <div class="card-body">
               <h5 class="card-title fw-bold">Standard Room 2</h5>
               <p class="card-text">Kamar standar dengan suasana tenang, cocok untuk wisatawan yang ingin menikmati Ubud.</p>
-              <p class="fw-bold">Rp375.000 / malam</p>
-              <a href="detail.html" class="btn btn-dark">Lihat Detail</a>
+              <p class="fw-bold">Rp350.000 / malam</p>
+              <a href="detail.html" class="btn btn-main">Lihat Detail</a>
             </div>
           </div>
         </div>
 
-        <div class="col-md-6 room-item" data-name="standard room garden view">
+        <div class="col-md-6 room-item" data-name="standard room 3 garden view kamar ac wifi kamar mandi dalam yoga sala">
           <div class="card h-100 shadow-sm">
             <img src="assets/images/room-3.jpg" class="card-img-top room-img" alt="Standard Room 3">
             <div class="card-body">
               <h5 class="card-title fw-bold">Standard Room 3</h5>
               <p class="card-text">Kamar dengan akses mudah ke area Yoga Sala dan lingkungan homestay yang asri.</p>
-              <p class="fw-bold">Rp400.000 / malam</p>
-              <a href="detail.html" class="btn btn-dark">Lihat Detail</a>
+              <p class="fw-bold">Rp350.000 / malam</p>
+              <a href="detail.html" class="btn btn-main">Lihat Detail</a>
             </div>
           </div>
         </div>
 
-        <div class="col-md-6 room-item" data-name="standard room pool access">
+        <div class="col-md-6 room-item" data-name="standard room 4 dekat kolam pool access kamar ac wifi kamar mandi dalam">
           <div class="card h-100 shadow-sm">
             <img src="assets/images/room-4.jpg" class="card-img-top room-img" alt="Standard Room 4">
             <div class="card-body">
               <h5 class="card-title fw-bold">Standard Room 4</h5>
               <p class="card-text">Kamar standar yang dekat dengan kolam renang dan area bersantai homestay.</p>
-              <p class="fw-bold">Rp400.000 / malam</p>
-              <a href="detail.html" class="btn btn-dark">Lihat Detail</a>
+              <p class="fw-bold">Rp350.000 / malam</p>
+              <a href="detail.html" class="btn btn-main">Lihat Detail</a>
             </div>
           </div>
         </div>
 
       </div>
+
+      <p id="noResultText" class="text-center text-muted mt-4 d-none">
+        Kamar tidak ditemukan.
+      </p>
     </div>
   </section>
 
-  <footer class="py-4 bg-dark text-white text-center">
+  <!-- Footer -->
+  <footer class="py-4 footer-custom text-center">
     <p class="mb-0">&copy; 2026 Shanti Asih Homestay. All Rights Reserved.</p>
   </footer>
 
