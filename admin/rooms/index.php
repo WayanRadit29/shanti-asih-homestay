@@ -1,4 +1,5 @@
 <?php
+include '../../auth/check_admin.php';
 include "../../config/koneksi.php";
 
 $query = "SELECT * FROM rooms ORDER BY id_room DESC";

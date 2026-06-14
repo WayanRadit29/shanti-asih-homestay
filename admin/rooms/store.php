@@ -1,4 +1,5 @@
 <?php
+include '../../auth/check_admin.php';
 include "../../config/koneksi.php";
 
 $nama_room = $_POST['nama_room'];

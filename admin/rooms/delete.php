@@ -1,4 +1,5 @@
 <?php
+include '../../auth/check_admin.php';
 include "../../config/koneksi.php";
 
 $id = $_GET['id'];
