@@ -40,14 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Verifikasi password menggunakan password_verify
                 if (password_verify($password, $user['password'])) {
+                    session_regenerate_id(true);
 
-                    session_regenerate_id(true); // Regenerate session ID untuk keamanan
-                    // Password benar, set session
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['nama'] = $user['nama'];
                     $_SESSION['role'] = $user['role'];
 
-                    // Redirect berdasarkan role
                     if ($user['role'] === 'admin') {
                         header("Location: admin/dashboard/index.php");
                     } else {
@@ -75,87 +73,105 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Shanti Asih Homestay</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
+        :root {
+            --primary-green: #5f7a3a;
+            --primary-green-dark: #4f6530;
+            --warm-brown: #8b6f47;
+            --cream-bg: #f5f1e8;
+            --text-dark: #2f2f2f;
+            --muted-text: #6c757d;
+        }
+
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.48)),
+                url("assets/images/homestay-hero.jpg");
+            background-size: cover;
+            background-position: center;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            padding: 24px;
         }
 
         .login-container {
             width: 100%;
-            max-width: 450px;
-            padding: 15px;
+            max-width: 460px;
         }
 
         .login-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            background: #ffffff;
+            border-radius: 22px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
             overflow: hidden;
         }
 
         .login-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--warm-brown) 100%);
             color: white;
-            padding: 30px;
+            padding: 34px 30px;
             text-align: center;
         }
 
         .login-header h1 {
             font-size: 28px;
             margin: 0;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .login-header p {
-            margin: 5px 0 0 0;
+            margin: 8px 0 0 0;
             font-size: 14px;
             opacity: 0.9;
         }
 
         .login-body {
-            padding: 40px 30px;
+            padding: 38px 32px;
+        }
+
+        .form-floating {
+            margin-bottom: 18px;
         }
 
         .form-floating .form-control {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 12px 15px;
-            height: auto;
-            font-size: 16px;
+            border: 1.5px solid #e3e0d8;
+            border-radius: 14px;
+            height: 58px;
+            font-size: 15px;
         }
 
         .form-floating .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.18rem rgba(95, 122, 58, 0.18);
         }
 
         .form-floating > label {
-            padding: 12px 15px;
-            color: #6c757d;
+            color: var(--muted-text);
         }
 
         .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary-green);
             border: none;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 999px;
+            padding: 13px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             width: 100%;
-            margin-top: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+            color: white;
+            transition: 0.25s;
         }
 
         .btn-login:hover {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            background: var(--primary-green-dark);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 24px rgba(95, 122, 58, 0.32);
             color: white;
         }
 
@@ -165,8 +181,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .alert {
             border: none;
-            border-radius: 8px;
-            margin-bottom: 25px;
+            border-radius: 14px;
+            margin-bottom: 24px;
             animation: slideDown 0.3s ease-out;
         }
 
@@ -175,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -187,73 +204,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-left: 4px solid #dc3545;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group-text {
-            background: transparent;
-            border: 2px solid #e9ecef;
-            border-right: none;
-        }
-
-        .input-group .form-control {
-            border-left: none;
-        }
-
-        .input-group .form-control:focus {
-            border-color: #667eea;
-        }
-
-        .input-group .form-control:focus + .input-group-text {
-            border-color: #667eea;
-        }
-
         .login-footer {
             text-align: center;
-            padding: 20px 30px;
-            background-color: #f8f9fa;
-            border-top: 1px solid #e9ecef;
+            padding: 22px 30px;
+            background-color: var(--cream-bg);
+            border-top: 1px solid #e3e0d8;
         }
 
         .login-footer p {
             margin: 0;
             font-size: 14px;
-            color: #6c757d;
+            color: var(--muted-text);
         }
 
         .login-footer a {
-            color: #667eea;
+            color: var(--primary-green);
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
+            font-weight: 700;
         }
 
         .login-footer a:hover {
-            color: #764ba2;
+            color: var(--primary-green-dark);
         }
 
-        .password-toggle {
-            cursor: pointer;
-            color: #667eea;
-            user-select: none;
+        .back-home {
+            text-align: center;
+            margin-top: 18px;
         }
 
-        .password-toggle:hover {
-            color: #764ba2;
+        .back-home a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 576px) {
+            .login-body {
+                padding: 30px 24px;
+            }
+
+            .login-header {
+                padding: 30px 24px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-card">
-            <!-- Header -->
             <div class="login-header">
-                <h1>🏠 Shanti Asih</h1>
-                <p>Homestay Login</p>
+                <h1>Shanti Asih</h1>
+                <p>Masuk ke akun Anda untuk melakukan booking homestay.</p>
             </div>
 
-            <!-- Body -->
             <div class="login-body">
                 <?php if (!empty($error)): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -263,67 +271,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
 
                 <form method="POST" action="" novalidate>
-                    <!-- Email Input -->
-                    <div class="form-floating form-group">
-                        <input 
-                            type="email" 
-                            class="form-control" 
-                            id="email" 
-                            name="email" 
-                            placeholder="Masukkan email Anda" 
+                    <div class="form-floating">
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            placeholder="Masukkan email Anda"
                             value="<?php echo htmlspecialchars($email); ?>"
-                            required>
-                        <label for="email">📧 Email Address</label>
+                            required
+                        >
+                        <label for="email">Email Address</label>
                     </div>
 
-                    <!-- Password Input -->
-                    <div class="form-floating form-group">
-                        <input 
-                            type="password" 
-                            class="form-control" 
-                            id="password" 
-                            name="password" 
-                            placeholder="Masukkan password Anda" 
-                            required>
-                        <label for="password">🔐 Password</label>
+                    <div class="form-floating">
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            placeholder="Masukkan password Anda"
+                            required
+                        >
+                        <label for="password">Password</label>
                     </div>
 
-                    <!-- Login Button -->
-                    <button type="submit" class="btn btn-primary btn-login">
-                        🔓 Login
+                    <button type="submit" class="btn btn-login">
+                        Login
                     </button>
                 </form>
             </div>
 
-            <!-- Footer -->
             <div class="login-footer">
                 <p>
                     Belum punya akun? <a href="register.php">Daftar di sini</a>
                 </p>
             </div>
         </div>
+
+        <div class="back-home">
+            <a href="index.php">← Kembali ke Beranda</a>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Optional: Toggle password visibility
-        const passwordInput = document.getElementById('password');
-        const togglePasswordBtn = document.createElement('button');
-        togglePasswordBtn.type = 'button';
-        togglePasswordBtn.className = 'btn btn-sm password-toggle';
-        togglePasswordBtn.textContent = '👁️';
-        
-        // Uncomment untuk enable toggle password
-        // passwordInput.parentElement.appendChild(togglePasswordBtn);
-        // togglePasswordBtn.addEventListener('click', function(e) {
-        //     e.preventDefault();
-        //     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        //     passwordInput.setAttribute('type', type);
-        //     this.textContent = type === 'password' ? '👁️' : '🙈';
-        // });
-
-        // Auto-dismiss alert after 5 seconds
         const alerts = document.querySelectorAll('.alert');
+
         alerts.forEach(alert => {
             setTimeout(() => {
                 const bsAlert = new bootstrap.Alert(alert);

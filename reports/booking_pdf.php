@@ -79,6 +79,12 @@ $date2 = new DateTime($booking['check_out']);
 $interval = $date1->diff($date2);
 $durasi = $interval->days;
 
+// Data kontak homestay
+$homestay_address = "Jalan Gotama Selatan No. 25, Ubud, Gianyar, Bali";
+$homestay_phone = "+62 819 376 226 96";
+$homestay_email = "info@shantiasihhomestay.com";
+
+
 // HTML Invoice
 $html = "
 <html>
@@ -248,7 +254,8 @@ $html = "
         <!-- Header -->
         <div class='header'>
             <h1>Bukti Booking Shanti Asih Homestay</h1>
-            <p>Jalan Raya Ubud, Gianyar - Bali | 📞 +62 XXX XXXX XXXX</p>
+            <p>" . htmlspecialchars($homestay_address) . " | Telp/WA: " . htmlspecialchars($homestay_phone) . "</p>
+            <p>Email: " . htmlspecialchars($homestay_email) . "</p>
         </div>
 
         <!-- Invoice Number -->
@@ -348,7 +355,8 @@ $html .= "
         <!-- Footer -->
         <div class='footer'>
             <p>Bukti booking ini telah dibuat pada " . date('d-m-Y H:i:s') . "</p>
-            <p>Terima kasih telah memilih Shanti Asih Homestay. Silakan hubungi kami jika ada pertanyaan.</p>
+            <p>Terima kasih telah memilih Shanti Asih Homestay.</p>
+            <p>Untuk pertanyaan lebih lanjut, hubungi Telp/WA: " . htmlspecialchars($homestay_phone) . " atau Email: " . htmlspecialchars($homestay_email) . "</p>
         </div>
     </div>
 </body>

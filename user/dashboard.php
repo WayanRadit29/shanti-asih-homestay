@@ -229,19 +229,46 @@ function statusBadge($status) {
         <div class="container">
             <a class="navbar-brand fw-bold" href="../index.php">Shanti Asih Homestay</a>
 
-            <div class="ms-auto navbar-actions">
-                <a href="../rooms.php" class="btn btn-soft btn-sm me-2">Lihat Kamar</a>
-                <a href="../logout.php" class="btn btn-logout btn-sm">Logout</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#userNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="userNavbar">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a href="../index.php" class="nav-link">Beranda</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="../rooms.php" class="nav-link">Kamar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="dashboard.php" class="nav-link active">Dashboard</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a href="../logout.php" class="btn btn-logout btn-sm">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
     <main class="container py-5">
         <div class="dashboard-header shadow-sm">
-            <h2 class="fw-bold dashboard-title">Dashboard User</h2>
-            <p class="text-muted mb-0">
-                Selamat datang, <?= htmlspecialchars($_SESSION['nama']); ?>. Pantau riwayat dan status booking Anda di sini.
-            </p>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <h2 class="fw-bold dashboard-title">Dashboard User</h2>
+                    <p class="text-muted mb-0">
+                        Selamat datang, <?= htmlspecialchars($_SESSION['nama']); ?>. Pantau riwayat dan status booking Anda di sini.
+                    </p>
+                </div>
+
+                <a href="../rooms.php" class="btn btn-main">
+                    + Booking Baru
+                </a>
+            </div>
         </div>
 
         <div class="row g-4 mb-4">

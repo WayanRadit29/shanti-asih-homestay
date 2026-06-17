@@ -207,12 +207,34 @@ $bookings = mysqli_fetch_all($result, MYSQLI_ASSOC);
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="../../admin/dashboard/index.php">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../../admin/rooms/index.php">Kamar</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="../../admin/bookings/index.php">Booking</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../../admin/users/index.php">User</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../../logout.php">Logout</a></li>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../admin/dashboard/index.php">Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../admin/rooms/index.php">Kamar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../admin/bookings/index.php">Booking</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../admin/users/index.php">User</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.php" target="_blank">
+                            Lihat Website
+                        </a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a href="../../logout.php" class="btn btn-sm btn-main">
+                            Logout
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -143,6 +143,68 @@ $total_rooms = mysqli_num_rows($result);
 
 <body>
 
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container-fluid">
+
+            <a class="navbar-brand fw-bold" href="../dashboard/index.php">
+                Admin - Shanti Asih
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../dashboard/index.php">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../rooms/index.php">
+                            Kamar
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../bookings/index.php">
+                            Booking
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../users/index.php">
+                            User
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.php" target="_blank">
+                            Lihat Website
+                        </a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a href="../../logout.php"
+                        class="btn btn-sm btn-main">
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
     <section class="page-header">
         <div class="container">
             <h1 class="mb-1">Manajemen Kamar</h1>

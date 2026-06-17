@@ -1,4 +1,7 @@
 <?php
+// kode ini untuk memulai session agar navbar bisa menyesuaikan status login
+session_start();
+
 // kode ini untuk menghubungkan database
 include "config/koneksi.php";
 
@@ -138,10 +141,43 @@ $rooms = mysqli_fetch_all($result, MYSQLI_ASSOC);
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.php">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="rooms.php">Kamar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Beranda</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="rooms.php">Kamar</a>
+                    </li>
+
+                    <?php if (isset($_SESSION['user_id'])): ?>
+
+                        <?php if ($_SESSION['role'] === 'admin'): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin/dashboard/index.php">Dashboard Admin</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="user/dashboard.php">Dashboard</a>
+                            </li>
+                        <?php endif; ?>
+
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-main btn-sm" href="logout.php">Logout</a>
+                        </li>
+
+                    <?php else: ?>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Login</a>
+                        </li>
+
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-main btn-sm" href="register.php">Register</a>
+                        </li>
+
+                    <?php endif; ?>
+                </ul>
                 </ul>
             </div>
         </div>

@@ -215,6 +215,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
             padding: 12px 24px;
             font-weight: 700;
         }
+        .btn-outline-main {
+                    border: 2px solid #6b8e23;
+                    color: #6b8e23;
+                    background-color: transparent;
+                    border-radius: 30px;
+                    padding: 12px 24px;
+                    font-weight: 700;
+                }
+
+        .btn-outline-main:hover {
+            background-color: #6b8e23;
+            color: white;
+                }
 
         .btn-back {
             margin-bottom: 20px;
@@ -230,9 +243,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
             padding: 20px;
             margin-top: 20px;
         }
+        
     </style>
 </head>
 <body>
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.php">Beranda</a>
+            </li>
+
+            <li class="breadcrumb-item">
+                <a href="rooms.php">Kamar</a>
+            </li>
+
+            <li class="breadcrumb-item">
+                <a href="detail.php?id=<?php echo $room['id_room']; ?>">
+                    <?php echo htmlspecialchars($room['nama_room']); ?>
+                </a>
+            </li>
+
+            <li class="breadcrumb-item active">
+                Booking
+            </li>
+        </ol>
+    </nav>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
@@ -250,7 +285,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.php">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="rooms.php">Kamar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="user/dashboard.php">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="user/dashboard.php">Dashboard Saya</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -381,8 +417,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
                     </div>
 
                     <!-- Tombol Submit -->
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                        <a href="rooms.php" class="btn btn-outline-secondary">Batal</a>
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <a href="detail.php?id=<?php echo $room['id_room']; ?>"
+                        class="btn btn-outline-main btn-lg px-4">
+                            Batal
+                        </a>
                         <button type="submit" class="btn btn-main btn-lg px-5">Lakukan Pemesanan</button>
                     </div>
                 </form>

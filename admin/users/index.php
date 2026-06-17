@@ -151,12 +151,34 @@ $total_users = count($users);
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="../dashboard/index.php">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../rooms/index.php">Kamar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../bookings/index.php">Booking</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="../users/index.php">User</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../../logout.php">Logout</a></li>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../dashboard/index.php">Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../rooms/index.php">Kamar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../bookings/index.php">Booking</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../users/index.php">User</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.php" target="_blank">
+                            Lihat Website
+                        </a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a href="../../logout.php" class="btn btn-sm btn-main">
+                            Logout
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

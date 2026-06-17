@@ -308,11 +308,30 @@ $latest_bookings = mysqli_fetch_all($result_latest, MYSQLI_ASSOC);
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.php">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../rooms/index.php">Kamar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../bookings/index.php">Booking</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../../logout.php">Logout</a></li>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php">Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../rooms/index.php">Kamar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../bookings/index.php">Booking</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../users/index.php">User</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.php">Lihat Website</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-light btn-sm" href="../../logout.php">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -455,10 +474,11 @@ $latest_bookings = mysqli_fetch_all($result_latest, MYSQLI_ASSOC);
                 <a href="../rooms/index.php" class="btn-action">
                     🏠 Kelola Kamar
                 </a>
+                <a href="../../index.php" class="btn-action">
+                    🌐 Lihat Website
+                </a>
             </div>
 
-           
-            </a>
         </div>
     </div>
 
