@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2026 at 09:59 AM
+-- Generation Time: Jun 17, 2026 at 03:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,6 +40,23 @@ CREATE TABLE `bookings` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`id_booking`, `user_id`, `room_id`, `check_in`, `check_out`, `jumlah_tamu`, `total_harga`, `status`, `catatan`, `created_at`) VALUES
+(1, 1, 1, '2026-06-20', '2026-06-22', 2, 700000.00, 'confirmed', 'Tamu meminta kamar dekat kolam renang.', '2026-06-14 09:40:47'),
+(2, 1, 2, '2026-07-05', '2026-07-07', 2, 700000.00, 'cancelled', 'Menunggu konfirmasi admin.', '2026-06-14 09:40:47'),
+(3, 1, 3, '2026-08-10', '2026-08-13', 1, 1050000.00, 'completed', 'Booking selesai tanpa catatan tambahan.', '2026-06-14 09:40:47'),
+(4, 2, 2, '2026-06-16', '2026-06-27', 2, 3850000.00, 'confirmed', '-', '2026-06-16 13:26:02'),
+(5, 1, 4, '2026-06-22', '2026-06-24', 1, 700000.00, 'cancelled', '', '2026-06-16 14:02:19'),
+(6, 1, 4, '2026-06-21', '2026-06-23', 1, 700000.00, 'confirmed', '', '2026-06-16 14:03:11'),
+(7, 1, 4, '2026-06-21', '2026-06-24', 1, 1050000.00, 'confirmed', '', '2026-06-16 14:06:31'),
+(8, 2, 3, '2026-07-08', '2026-07-10', 2, 700000.00, 'cancelled', 'Tidak ada', '2026-06-17 08:42:31'),
+(9, 1, 3, '2026-07-01', '2026-07-02', 1, 350000.00, 'pending', '', '2026-06-17 08:57:06'),
+(10, 1, 1, '2026-07-31', '2026-08-01', 1, 350000.00, 'pending', '', '2026-06-17 09:54:05'),
+(11, 3, 4, '2026-07-09', '2026-07-10', 2, 350000.00, 'confirmed', 'Sediakan minuman herbal', '2026-06-17 11:17:48');
+
 -- --------------------------------------------------------
 
 --
@@ -69,6 +86,16 @@ CREATE TABLE `rooms` (
   `main_image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`id_room`, `nama_room`, `harga`, `kapasitas`, `deskripsi`, `status`, `main_image`, `created_at`) VALUES
+(1, 'Standard Room 1', 350000.00, 2, 'Kamar nyaman dengan AC, WiFi, kamar mandi dalam, dan akses ke kolam renang.', 'available', 'room-1.jpg', '2026-06-02 01:32:23'),
+(2, 'Standard Room 2', 350000.00, 2, 'Kamar standar dengan suasana tenang, cocok untuk wisatawan yang ingin menikmati Ubud.', 'available', 'room-2.jpg', '2026-06-02 01:32:23'),
+(3, 'Standard Room 3', 350000.00, 2, 'Kamar dengan akses mudah ke area Yoga Sala dan lingkungan homestay yang asri.', 'available', 'room-3.jpg', '2026-06-02 01:32:23'),
+(4, 'Standard Room 4', 350000.00, 2, 'Kamar standar yang dekat dengan kolam renang dan area bersantai homestay.', 'available', 'room-4.jpg', '2026-06-02 01:32:23');
 
 -- --------------------------------------------------------
 
@@ -110,6 +137,15 @@ CREATE TABLE `users` (
   `role` enum('admin','user') DEFAULT 'user',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `nama`, `email`, `password`, `no_hp`, `role`, `created_at`) VALUES
+(1, 'Wayan', 'wayan@gmail.com', '$2y$10$rwVUK8V2t3pmX2uafvbqz.vzlX4tDWxoKyrUkDE5t7KmDm0Tej85C', '08123456789', 'user', '2026-06-13 15:01:59'),
+(2, 'Radit', 'jalan@gmail.com', '$2y$10$Q08jqjN9ZUvTldnD1d7PGeuODRd2AMyLK4PKfbM6YvE6Kzte9C/hC', '123456789', 'admin', '2026-06-13 15:19:17'),
+(3, 'putra', 'putra@gmail.com', '$2y$10$Vj2Huv3dDJFECSYppSoWJuVqDNXBZ/ddE8woU2fzfi449HjQQOzZS', '081456873', 'user', '2026-06-17 11:14:03');
 
 --
 -- Indexes for dumped tables
@@ -165,7 +201,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `facilities`
@@ -177,7 +213,7 @@ ALTER TABLE `facilities`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id_room` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_room` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `room_facilities`
@@ -195,7 +231,7 @@ ALTER TABLE `room_images`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
