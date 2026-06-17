@@ -1,22 +1,27 @@
 <?php
-// Include koneksi database
+// kode ini untuk memulai session
+session_start();
+
+// kode ini untuk menghubungkan database
 include '../config/koneksi.php';
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
-
-use Dompdf\Dompdf;
-
-// Validasi ID booking dari GET
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    die("ID booking tidak ditemukan");
+// kode ini untuk proteksi - user harus login terlebih dahulu
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit;
 }
 
-$id_booking = $_GET['id'];
+// kode ini untuk validasi id_booking dari URL harus integer
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die("Akses ditolak atau data booking tidak ditemukan.");
+}
 
-// Query data booking dengan JOIN
+$id_booking = (int)$_GET['id'];
+
+// kode ini untuk ambil data booking dengan JOIN ke tabel users dan rooms menggunakan prepared statement
 $query = "SELECT 
             b.id_booking,
+            b.user_id,
             u.nama,
             u.email,
             u.no_hp,
@@ -33,24 +38,35 @@ $query = "SELECT
         JOIN rooms r ON b.room_id = r.id_room
         WHERE b.id_booking = ?";
 
-// Prepared statement
-$stmt = $conn->prepare($query);
+// kode ini untuk prepared statement
+$stmt = mysqli_prepare($conn, $query);
 
 if (!$stmt) {
-    die("Error preparing statement: " . $conn->error);
+    die("Akses ditolak atau data booking tidak ditemukan.");
 }
 
-$stmt->bind_param("i", $id_booking);
-$stmt->execute();
-$result = $stmt->get_result();
+mysqli_stmt_bind_param($stmt, "i", $id_booking);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-// Cek apakah data booking ditemukan
-if ($result->num_rows === 0) {
-    die("Data booking tidak ditemukan");
+// kode ini untuk cek apakah booking ditemukan
+if (mysqli_num_rows($result) === 0) {
+    mysqli_stmt_close($stmt);
+    die("Akses ditolak atau data booking tidak ditemukan.");
 }
 
-$booking = $result->fetch_assoc();
-$stmt->close();
+$booking = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
+
+// kode ini untuk validasi hak akses - user hanya bisa mencetak booking miliknya sendiri, admin bisa semua
+if ($_SESSION['role'] === 'user' && $booking['user_id'] !== $_SESSION['user_id']) {
+    die("Akses ditolak atau data booking tidak ditemukan.");
+}
+
+// kode ini jika akses valid, lanjut ke generation PDF
+require_once __DIR__ . "/../vendor/autoload.php";
+
+use Dompdf\Dompdf;
 
 // Format tanggal
 $check_in = date('d-m-Y', strtotime($booking['check_in']));
