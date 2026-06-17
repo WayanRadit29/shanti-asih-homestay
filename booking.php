@@ -125,43 +125,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
     <style>
         body {
             padding-top: 80px;
-            background-color: #f8f9fa;
+            background-color: #f8f6f1;
         }
 
         .booking-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        .room-info-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .room-info-card,
+        .booking-form {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: none;
         }
 
-        .booking-form {
-            background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .room-info-card {
+            margin-bottom: 30px;
         }
 
         .form-section-title {
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 15px;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 18px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
-            color: #667eea;
+            border-bottom: 2px solid #6b8e23;
+            color: #556b2f;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e9ecef;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #ececec;
         }
 
         .info-row:last-child {
@@ -170,16 +169,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
 
         .info-label {
             font-weight: 600;
-            color: #495057;
+            color: #555;
         }
 
         .info-value {
-            color: #212529;
-            font-weight: 500;
+            font-weight: 600;
+        }
+
+        .price-highlight {
+            color: #6b8e23;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .booking-header {
+            background: linear-gradient(
+                rgba(0,0,0,0.45),
+                rgba(0,0,0,0.45)
+            ),
+            url('assets/images/homestay-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            padding: 60px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .booking-header h1 {
+            font-weight: 800;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .form-control:focus {
+            border-color: #6b8e23;
+            box-shadow: 0 0 0 0.15rem rgba(107,142,35,0.2);
+        }
+
+        .btn-main {
+            padding: 12px 24px;
+            font-weight: 700;
         }
 
         .btn-back {
             margin-bottom: 20px;
+        }
+
+        .alert {
+            border-radius: 14px;
+        }
+
+        .booking-summary {
+            background: #f5f1e8;
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -210,6 +259,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
     <!-- Main Content -->
     <div class="container booking-container py-5">
 
+        <div class="booking-header text-center">
+            <h1>Booking Kamar</h1>
+            <p class="mb-0">
+                Lengkapi informasi pemesanan Anda untuk menginap di Shanti Asih Homestay
+            </p>
+        </div>
         <!-- Tombol kembali -->
         <div class="btn-back">
             <a href="rooms.php" class="btn btn-outline-secondary">
@@ -249,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
 
                 <div class="info-row">
                     <span class="info-label">Harga per Malam</span>
-                    <span class="info-value text-primary fw-bold">Rp<?php echo number_format($room['harga'], 0, ',', '.'); ?></span>
+                    <span class="price-highlight">Rp<?php echo number_format($room['harga'], 0, ',', '.'); ?></span>
                 </div>
 
                 <div class="info-row">
@@ -258,9 +313,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
                 </div>
             </div>
 
+            <div class="booking-summary">
+                <h6 class="fw-bold mb-3">Ringkasan Kamar</h6>
+
+                <ul class="mb-0">
+                    <li>Kapasitas maksimal <?= htmlspecialchars($room['kapasitas']); ?> tamu</li>
+                    <li>Harga dihitung berdasarkan jumlah malam menginap</li>
+                    <li>Booking harus dikonfirmasi admin terlebih dahulu</li>
+                    <li>Tanggal yang bentrok otomatis ditolak sistem</li>
+                </ul>
+            </div>
+
             <!-- Form Booking -->
             <div class="booking-form">
-                <h4 class="fw-bold mb-4">Form Pemesanan</h4>
+                <h4 class="fw-bold mb-4">
+                    Lengkapi Data Pemesanan
+                </h4>
+
+            <p class="text-muted mb-4">
+                Pastikan tanggal menginap dan jumlah tamu sudah sesuai sebelum melakukan booking.
+            </p>
 
                 <form method="POST" action="">
                     <!-- Tanggal Check-in dan Check-out -->
@@ -311,7 +383,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $room) {
                     <!-- Tombol Submit -->
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                         <a href="rooms.php" class="btn btn-outline-secondary">Batal</a>
-                        <button type="submit" class="btn btn-main btn-lg">Lakukan Pemesanan</button>
+                        <button type="submit" class="btn btn-main btn-lg px-5">Lakukan Pemesanan</button>
                     </div>
                 </form>
             </div>

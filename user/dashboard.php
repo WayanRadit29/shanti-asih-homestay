@@ -58,73 +58,238 @@ function statusBadge($status) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard User - Shanti Asih Homestay</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #5f7a3a;
+            --primary-green-dark: #4f6530;
+            --warm-brown: #8b6f47;
+            --cream-bg: #f5f1e8;
+            --card-bg: #ffffff;
+            --text-dark: #2f2f2f;
+            --muted-text: #6c757d;
+        }
+
+        body {
+            background-color: var(--cream-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--warm-brown) 100%);
+            box-shadow: 0 2px 12px rgba(47, 47, 47, 0.12);
+        }
+
+        .navbar-brand {
+            letter-spacing: 0.3px;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, rgba(95, 122, 58, 0.12), rgba(139, 111, 71, 0.12));
+            border: 1px solid rgba(95, 122, 58, 0.12);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+
+        .dashboard-title {
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .stat-card {
+            border: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            transition: 0.25s ease;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(47, 47, 47, 0.12);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--muted-text);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 34px;
+            color: var(--primary-green);
+            font-weight: 800;
+        }
+
+        .section-card {
+            border: 0;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .section-title {
+            color: var(--text-dark);
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--primary-green);
+        }
+
+        .table thead th {
+            background-color: #e8eadf;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .btn-main {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+            color: #ffffff;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .btn-main:hover {
+            background-color: var(--primary-green-dark);
+            border-color: var(--primary-green-dark);
+            color: #ffffff;
+        }
+
+        .btn-soft {
+            background-color: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .btn-soft:hover {
+            background-color: #ffffff;
+            color: var(--primary-green);
+        }
+
+        .btn-logout {
+            background-color: #ffffff;
+            color: var(--primary-green);
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .btn-logout:hover {
+            background-color: #f5f1e8;
+            color: var(--primary-green-dark);
+        }
+
+        .badge {
+            padding: 8px 10px;
+            border-radius: 999px;
+            text-transform: capitalize;
+        }
+
+        .empty-state {
+            background-color: #f8f5ef;
+            border-left: 4px solid var(--primary-green);
+            border-radius: 12px;
+            padding: 18px;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-header {
+                padding: 20px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .navbar-actions {
+                margin-top: 12px;
+                width: 100%;
+                display: flex;
+                gap: 8px;
+            }
+
+            .navbar-actions .btn {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
             <a class="navbar-brand fw-bold" href="../index.php">Shanti Asih Homestay</a>
-            <div class="ms-auto">
-                <a href="../rooms.php" class="btn btn-outline-light btn-sm me-2">Lihat Kamar</a>
-                <a href="../logout.php" class="btn btn-light btn-sm">Logout</a>
+
+            <div class="ms-auto navbar-actions">
+                <a href="../rooms.php" class="btn btn-soft btn-sm me-2">Lihat Kamar</a>
+                <a href="../logout.php" class="btn btn-logout btn-sm">Logout</a>
             </div>
         </div>
     </nav>
 
     <main class="container py-5">
-        <div class="mb-4">
-            <h2 class="fw-bold">Dashboard User</h2>
+        <div class="dashboard-header shadow-sm">
+            <h2 class="fw-bold dashboard-title">Dashboard User</h2>
             <p class="text-muted mb-0">
-                Selamat datang, <?= htmlspecialchars($_SESSION['nama']); ?>.
+                Selamat datang, <?= htmlspecialchars($_SESSION['nama']); ?>. Pantau riwayat dan status booking Anda di sini.
             </p>
         </div>
 
         <div class="row g-4 mb-4">
             <div class="col-md-3 col-6">
-                <div class="card shadow-sm border-0">
+                <div class="card stat-card shadow-sm">
                     <div class="card-body">
-                        <p class="text-muted mb-1">Total Booking</p>
-                        <h3 class="fw-bold mb-0"><?= $total_booking; ?></h3>
+                        <p class="stat-label mb-1">Total Booking</p>
+                        <div class="stat-value"><?= $total_booking; ?></div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3 col-6">
-                <div class="card shadow-sm border-0">
+                <div class="card stat-card shadow-sm">
                     <div class="card-body">
-                        <p class="text-muted mb-1">Pending</p>
-                        <h3 class="fw-bold mb-0"><?= $total_pending; ?></h3>
+                        <p class="stat-label mb-1">Pending</p>
+                        <div class="stat-value"><?= $total_pending; ?></div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3 col-6">
-                <div class="card shadow-sm border-0">
+                <div class="card stat-card shadow-sm">
                     <div class="card-body">
-                        <p class="text-muted mb-1">Confirmed</p>
-                        <h3 class="fw-bold mb-0"><?= $total_confirmed; ?></h3>
+                        <p class="stat-label mb-1">Confirmed</p>
+                        <div class="stat-value"><?= $total_confirmed; ?></div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3 col-6">
-                <div class="card shadow-sm border-0">
+                <div class="card stat-card shadow-sm">
                     <div class="card-body">
-                        <p class="text-muted mb-1">Cancelled</p>
-                        <h3 class="fw-bold mb-0"><?= $total_cancelled; ?></h3>
+                        <p class="stat-label mb-1">Cancelled</p>
+                        <div class="stat-value"><?= $total_cancelled; ?></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <h4 class="fw-bold mb-3">Riwayat Booking Saya</h4>
+        <div class="card section-card shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="fw-bold mb-4 section-title">Riwayat Booking Saya</h4>
 
                 <?php if (count($bookings) > 0): ?>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover align-middle">
-                            <thead class="table-success">
+                        <table class="table table-bordered table-hover align-middle mb-0">
+                            <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Kamar</th>
@@ -141,19 +306,19 @@ function statusBadge($status) {
                                 <?php foreach ($bookings as $booking): ?>
                                     <tr>
                                         <td><?= htmlspecialchars($booking['id_booking']); ?></td>
-                                        <td><?= htmlspecialchars($booking['nama_room']); ?></td>
-                                        <td><?= htmlspecialchars($booking['check_in']); ?></td>
-                                        <td><?= htmlspecialchars($booking['check_out']); ?></td>
+                                        <td class="fw-semibold"><?= htmlspecialchars($booking['nama_room']); ?></td>
+                                        <td><?= htmlspecialchars(date('d/m/Y', strtotime($booking['check_in']))); ?></td>
+                                        <td><?= htmlspecialchars(date('d/m/Y', strtotime($booking['check_out']))); ?></td>
                                         <td><?= htmlspecialchars($booking['jumlah_tamu']); ?></td>
-                                        <td>Rp <?= number_format($booking['total_harga'], 0, ',', '.'); ?></td>
+                                        <td class="fw-semibold">Rp <?= number_format($booking['total_harga'], 0, ',', '.'); ?></td>
                                         <td>
                                             <span class="badge bg-<?= statusBadge($booking['status']); ?>">
                                                 <?= htmlspecialchars($booking['status']); ?>
                                             </span>
                                         </td>
-                                        <td><?= htmlspecialchars($booking['created_at']); ?></td>
+                                        <td><?= htmlspecialchars(date('d/m/Y H:i', strtotime($booking['created_at']))); ?></td>
                                         <td>
-                                            <a href="../reports/booking_pdf.php?id=<?= $booking['id_booking']; ?>" class="btn btn-sm btn-success" target="_blank">
+                                            <a href="../reports/booking_pdf.php?id=<?= htmlspecialchars($booking['id_booking']); ?>" class="btn btn-sm btn-main" target="_blank">
                                                 Cetak PDF
                                             </a>
                                         </td>
@@ -163,8 +328,8 @@ function statusBadge($status) {
                         </table>
                     </div>
                 <?php else: ?>
-                    <div class="alert alert-info mb-0">
-                        Belum ada riwayat booking.
+                    <div class="empty-state mb-0">
+                        Belum ada riwayat booking. Silakan pilih kamar untuk mulai melakukan booking.
                     </div>
                 <?php endif; ?>
             </div>

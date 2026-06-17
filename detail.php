@@ -56,52 +56,83 @@ if ($room) {
     <style>
         body {
             padding-top: 80px;
+            background-color: #ffffff;
         }
 
         .detail-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .main-image {
             width: 100%;
-            height: 400px;
+            height: 500px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         .gallery-image {
             width: 100%;
             height: 150px;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: 0.3s;
         }
 
         .gallery-image:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .detail-info {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
+            background: #f5f1e8;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.08);
         }
 
         .info-row {
-            padding: 10px 0;
-            border-bottom: 1px solid #dee2e6;
+            padding: 14px 0;
+            border-bottom: 1px solid #ddd;
         }
 
         .info-row:last-child {
             border-bottom: none;
         }
 
+        .room-price {
+            color: #5f7a3a;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
         .badge-status {
+            padding: 10px 14px;
+            border-radius: 999px;
             font-size: 0.9rem;
-            padding: 8px 12px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+        }
+
+        .booking-btn {
+            padding: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .breadcrumb a {
+            color: #5f7a3a;
+            text-decoration: none;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -137,6 +168,11 @@ if ($room) {
         <?php
         } else {
         ?>
+            <div class="back-button">
+                <a href="rooms.php" class="btn btn-outline-success">
+                    ← Kembali ke Daftar Kamar
+                </a>
+            </div>
 
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb">
@@ -186,7 +222,7 @@ if ($room) {
                     ?>
 
                     <!-- Deskripsi Lengkap -->
-                    <div class="mb-4">
+                    <div class="section-card mb-4">
                         <h5 class="fw-bold mb-3">Deskripsi Kamar</h5>
                         <p class="text-muted">
                             <?php echo htmlspecialchars($room['deskripsi']); ?>
@@ -206,9 +242,9 @@ if ($room) {
                         <!-- Harga -->
                         <div class="info-row">
                             <p class="mb-0">
-                                <strong>Harga</strong>
+                                💰 <strong>Harga per Malam</strong>
                             </p>
-                            <p class="fs-5 text-primary fw-bold">
+                            <p class="room-price mb-0">
                                 <?php echo $harga_rupiah; ?> / malam
                             </p>
                         </div>
@@ -216,7 +252,7 @@ if ($room) {
                         <!-- Kapasitas -->
                         <div class="info-row">
                             <p class="mb-0">
-                                <strong>Kapasitas</strong>
+                                👥 <strong>Kapasitas Tamu</strong>
                             </p>
                             <p class="text-muted">
                                 <?php echo htmlspecialchars($room['kapasitas']); ?> orang
@@ -226,14 +262,14 @@ if ($room) {
                         <!-- Status -->
                         <div class="info-row">
                             <p class="mb-0">
-                                <strong>Status</strong>
+                                ✓ <strong>Status Kamar</strong>
                             </p>
                             <?php
                             // kode ini untuk tampilkan badge status dengan warna berbeda
                             if ($room['status'] === 'available') {
-                                echo '<span class="badge bg-success badge-status">Tersedia</span>';
+                                echo '<span class="badge badge-status text-white" style="background:#5f7a3a;">Tersedia</span>';
                             } else {
-                                echo '<span class="badge bg-danger badge-status">Tidak Tersedia</span>';
+                                echo '<span class="badge bg-secondary badge-status">Tidak Tersedia</span>';
                             }
                             ?>
                         </div>
@@ -245,7 +281,7 @@ if ($room) {
                         // kode ini untuk tampilkan tombol booking jika kamar tersedia
                         if ($room['status'] === 'available') {
                         ?>
-                        <a href="booking.php?room_id=<?php echo htmlspecialchars($room['id_room']); ?>" class="btn btn-main w-100 mb-2">
+                        <a href="booking.php?room_id=<?php echo htmlspecialchars($room['id_room']); ?>" class="btn btn-main booking-btn w-100 mb-2">
                             Booking Sekarang
                         </a>
                         <?php
@@ -264,7 +300,7 @@ if ($room) {
                     </div>
 
                     <!-- Additional Info Box -->
-                    <div class="alert alert-info mt-4 small">
+                    <div class="section-card mt-4">
                         <p class="mb-1">
                             <strong>Informasi Penting:</strong>
                         </p>

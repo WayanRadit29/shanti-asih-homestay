@@ -23,39 +23,49 @@ $rooms = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <style>
         body {
             padding-top: 80px;
+            background-color: #ffffff;
         }
 
         .page-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #5f7a3a 0%, #8b6f47 100%);
             color: white;
-            padding: 60px 0;
-            margin-bottom: 40px;
+            padding: 70px 0;
+            margin-bottom: 50px;
         }
 
         .page-header h1 {
-            font-weight: bold;
+            font-weight: 800;
             font-size: 2.5rem;
+            letter-spacing: 0.5px;
         }
 
         .page-header p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             opacity: 0.9;
         }
 
+        .section-title {
+            color: #2f2f2f;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #5f7a3a;
+        }
+
         .room-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none;
+            border-radius: 18px;
+            overflow: hidden;
             height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .room-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
         }
 
         .room-image {
             width: 100%;
-            height: 250px;
+            height: 260px;
             object-fit: cover;
         }
 
@@ -65,6 +75,7 @@ $rooms = mysqli_fetch_all($result, MYSQLI_ASSOC);
             right: 15px;
             font-size: 0.85rem;
             padding: 8px 12px;
+            border-radius: 999px;
         }
 
         .room-card-body {
@@ -73,12 +84,42 @@ $rooms = mysqli_fetch_all($result, MYSQLI_ASSOC);
             height: 100%;
         }
 
+        .room-price {
+            color: #5f7a3a;
+        }
+
         .room-description {
             flex-grow: 1;
         }
 
         .room-footer {
             margin-top: auto;
+        }
+
+        .empty-box {
+            background-color: #f8f5ef;
+            border-left: 4px solid #5f7a3a;
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .cta-section {
+            background-color: #f5f1e8;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 50px 0;
+                margin-bottom: 35px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .room-image {
+                height: 230px;
+            }
         }
     </style>
 </head>
@@ -110,107 +151,108 @@ $rooms = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <section class="page-header">
         <div class="container">
             <h1>Daftar Kamar Kami</h1>
-            <p>Pilih kamar impian Anda di Shanti Asih Homestay</p>
+            <p class="mb-0">Pilih kamar terbaik untuk pengalaman menginap yang tenang dan nyaman di Ubud.</p>
         </div>
     </section>
 
     <!-- Main Content -->
     <div class="container mb-5">
-        <?php
-        // kode ini untuk cek apakah ada kamar
-        if (count($rooms) > 0) {
-        ?>
 
-        <div class="row g-4">
-            <?php
-            // kode ini untuk loop menampilkan setiap kamar dalam card
-            foreach ($rooms as $room) {
-                // kode ini untuk format harga ke Rupiah
-                $harga_rupiah = "Rp" . number_format($room['harga'], 0, ',', '.');
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+            <h5 class="fw-bold section-title mb-0">
+                Pilihan Kamar
+            </h5>
 
-                // kode ini untuk membuat potongan deskripsi singkat (60 karakter)
-                $deskripsi_singkat = strlen($room['deskripsi']) > 60 
-                    ? substr($room['deskripsi'], 0, 60) . '...' 
-                    : $room['deskripsi'];
+            <span class="badge bg-light text-dark border px-3 py-2">
+                Total: <?= count($rooms); ?> kamar
+            </span>
+        </div>
 
-                // kode ini untuk tentukan status badge
-                $is_available = $room['status'] === 'available';
-                $badge_status = $is_available 
-                    ? '<span class="badge bg-success badge-status">Tersedia</span>' 
-                    : '<span class="badge bg-danger badge-status">Tidak Tersedia</span>';
-            ?>
+        <?php if (count($rooms) > 0): ?>
 
-            <div class="col-md-6 col-lg-4">
-                <div class="card room-card shadow-sm">
-                    <!-- Container gambar dengan badge -->
-                    <div style="position: relative;">
-                        <img src="uploads/rooms/<?php echo htmlspecialchars($room['main_image']); ?>" 
-                             class="card-img-top room-image" 
-                             alt="<?php echo htmlspecialchars($room['nama_room']); ?>">
-                        
-                        <!-- Badge status kamar -->
-                        <?php echo $badge_status; ?>
-                    </div>
+            <div class="row g-4">
+                <?php foreach ($rooms as $room): ?>
+                    <?php
+                    // kode ini untuk format harga ke Rupiah
+                    $harga_rupiah = "Rp" . number_format($room['harga'], 0, ',', '.');
 
-                    <div class="card-body room-card-body">
-                        <!-- Nama kamar -->
-                        <h5 class="card-title fw-bold">
-                            <?php echo htmlspecialchars($room['nama_room']); ?>
-                        </h5>
+                    // kode ini untuk membuat potongan deskripsi singkat
+                    $deskripsi_singkat = strlen($room['deskripsi']) > 75
+                        ? substr($room['deskripsi'], 0, 75) . '...'
+                        : $room['deskripsi'];
 
-                        <!-- Harga per malam -->
-                        <p class="card-text text-primary fw-bold fs-6">
-                            <?php echo $harga_rupiah; ?> / malam
-                        </p>
+                    // kode ini untuk menentukan status badge
+                    $is_available = $room['status'] === 'available';
+                    $badge_status = $is_available
+                        ? '<span class="badge badge-status text-white" style="background:#5f7a3a;">Tersedia</span>'
+                        : '<span class="badge badge-status bg-secondary">Tidak Tersedia</span>';
+                    ?>
 
-                        <!-- Kapasitas kamar -->
-                        <p class="card-text text-muted small mb-2">
-                            <i class="bi bi-people"></i> Kapasitas: <?php echo htmlspecialchars($room['kapasitas']); ?> orang
-                        </p>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card room-card shadow-sm">
+                            <div style="position: relative;">
+                                <img
+                                    src="uploads/rooms/<?php echo htmlspecialchars($room['main_image']); ?>"
+                                    class="card-img-top room-image"
+                                    alt="<?php echo htmlspecialchars($room['nama_room']); ?>"
+                                >
 
-                        <!-- Deskripsi singkat -->
-                        <p class="card-text small room-description text-muted">
-                            <?php echo htmlspecialchars($deskripsi_singkat); ?>
-                        </p>
+                                <?php echo $badge_status; ?>
+                            </div>
 
-                        <!-- Tombol detail -->
-                        <div class="room-footer">
-                            <a href="detail.php?id=<?php echo htmlspecialchars($room['id_room']); ?>" 
-                               class="btn btn-main btn-sm w-100">
-                                Detail Kamar
-                            </a>
+                            <div class="card-body room-card-body">
+                                <h5 class="card-title fw-bold mb-2">
+                                    <?php echo htmlspecialchars($room['nama_room']); ?>
+                                </h5>
+
+                                <p class="fw-bold fs-5 mb-2 room-price">
+                                    <?php echo $harga_rupiah; ?> / malam
+                                </p>
+
+                                <p class="card-text text-muted small mb-2">
+                                    Kapasitas: <?php echo htmlspecialchars($room['kapasitas']); ?> orang
+                                </p>
+
+                                <p class="card-text small room-description text-muted">
+                                    <?php echo htmlspecialchars($deskripsi_singkat); ?>
+                                </p>
+
+                                <div class="room-footer">
+                                    <a
+                                        href="detail.php?id=<?php echo htmlspecialchars($room['id_room']); ?>"
+                                        class="btn btn-main btn-sm w-100"
+                                    >
+                                        Detail Kamar
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                <?php endforeach; ?>
             </div>
 
-            <?php
-            }
-            ?>
-        </div>
+        <?php else: ?>
 
-        <?php
-        } else {
-            // kode ini untuk tampilkan pesan jika tidak ada kamar
-        ?>
+            <div class="empty-box text-center">
+                <h5 class="mb-3">Belum ada kamar tersedia</h5>
+                <p class="text-muted mb-3">
+                    Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut.
+                </p>
+                <a href="index.php" class="btn btn-main">Kembali ke Beranda</a>
+            </div>
 
-        <div class="alert alert-info text-center py-5">
-            <h5 class="mb-3">Belum ada kamar tersedia</h5>
-            <p class="text-muted mb-3">Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut.</p>
-            <a href="index.php" class="btn btn-main">Kembali ke Beranda</a>
-        </div>
-
-        <?php
-        }
-        ?>
+        <?php endif; ?>
     </div>
 
     <!-- CTA Section -->
-    <section class="py-5 bg-light text-center">
+    <section class="py-5 text-center cta-section">
         <div class="container">
-            <h3 class="fw-bold mb-3">Tertarik untuk Menginap?</h3>
-            <p class="text-muted mb-4">Hubungi kami untuk reservasi atau pertanyaan lebih lanjut.</p>
-            <a href="booking.php" class="btn btn-main btn-lg">Lakukan Booking</a>
+            <h3 class="fw-bold mb-3">Siap Menginap di Ubud?</h3>
+            <p class="text-muted mb-4">
+                Pilih kamar terbaik dan lakukan booking dalam beberapa langkah sederhana.
+            </p>
+            <a href="rooms.php" class="btn btn-main btn-lg">Pilih Kamar Sekarang</a>
         </div>
     </section>
 

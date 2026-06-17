@@ -1,20 +1,29 @@
 :root {
-  --primary-dark: #1f1f1f;
-  --accent-green: #6b8e23;
-  --accent-green-dark: #556b2f;
+  --primary-dark: #2f2f2f;
+  --accent-green: #5f7a3a;
+  --accent-green-dark: #4f6530;
+  --accent-brown: #8b6f47;
   --accent-beige: #f5f1e8;
+  --white: #ffffff;
 }
 
 body {
   padding-top: 70px;
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--white);
+  color: var(--primary-dark);
 }
+
+/* Hero Section */
 
 .hero-section {
   min-height: 90vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
-              url("../assets/images/homestay-hero.jpg");
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.55)
+    ),
+    url("../assets/images/homestay-hero.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -26,16 +35,23 @@ body {
 
 .hero-title {
   color: #ffffff !important;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.65);
 }
 
 .hero-subtitle {
   color: #ffffff;
-  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Navbar */
+
+.navbar {
+  backdrop-filter: blur(10px);
 }
 
 .navbar-brand {
   letter-spacing: 0.3px;
+  font-weight: 700;
 }
 
 .logo-img {
@@ -45,57 +61,82 @@ body {
 
 .nav-link {
   font-weight: 500;
+  transition: 0.25s;
 }
+
+.nav-link:hover {
+  color: var(--accent-green) !important;
+}
+
+/* Background */
 
 .bg-light {
   background-color: var(--accent-beige) !important;
 }
 
+/* Cards */
+
 .info-card,
 .location-box {
   background-color: var(--accent-beige);
+  border-radius: 18px;
 }
 
 section h1,
 section h2,
 section h3 {
   color: var(--primary-dark);
+  font-weight: 700;
 }
 
+/* Buttons */
+
 .btn {
-  border-radius: 30px;
+  border-radius: 999px;
+  transition: 0.25s ease;
 }
 
 .btn-main {
   background-color: var(--accent-green);
   color: white;
   border: none;
-  border-radius: 30px;
 }
 
 .btn-main:hover {
   background-color: var(--accent-green-dark);
   color: white;
+  transform: translateY(-2px);
 }
 
+.btn-main:active {
+  transform: translateY(0);
+}
+
+/* Room Cards */
+
 .card {
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  transition: 0.3s;
+  transition: 0.3s ease;
+  border: none;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 }
+
+/* Facilities */
 
 .facility-card {
   overflow: hidden;
-  transition: 0.3s;
+  transition: 0.3s ease;
+  border-radius: 18px;
 }
 
 .facility-card:hover {
-  transform: translateY(-5px);
-  border: 1px solid var(--accent-green);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 }
 
 .facility-large-img {
@@ -105,15 +146,18 @@ section h3 {
 }
 
 .small-facility-box {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--primary-dark);
-  transition: 0.3s;
+  transition: 0.25s;
+  border-radius: 14px;
 }
 
 .small-facility-box:hover {
   transform: translateY(-3px);
   border: 1px solid var(--accent-green);
 }
+
+/* Images */
 
 .room-img {
   height: 260px;
@@ -124,16 +168,64 @@ section h3 {
   width: 100%;
   height: 420px;
   object-fit: cover;
+  border-radius: 18px;
 }
 
 .gallery-img {
   width: 100%;
   height: 240px;
   object-fit: cover;
+  border-radius: 16px;
+  transition: 0.3s;
 }
+
+.gallery-img:hover {
+  transform: scale(1.03);
+}
+
+/* FAQ */
+
+.accordion-button:not(.collapsed) {
+  background-color: #e8eadf;
+  color: var(--primary-dark);
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+/* Tables */
+
+.table-success {
+  --bs-table-bg: #e8eadf;
+  --bs-table-color: #2f2f2f;
+}
+
+/* Footer */
 
 .footer-custom {
   background-color: #2f3e1f;
   color: white;
   font-size: 14px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .facility-large-img {
+    height: 220px;
+  }
+
+  .detail-img {
+    height: 300px;
+  }
+
+  .room-img {
+    height: 220px;
+  }
 }
