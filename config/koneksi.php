@@ -1,12 +1,17 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "shanti_asih_homestay";
 
-$conn = mysqli_connect($host, $user, $password, $database);
+$host = "sql108.infinityfree.com";
+$user = "if0_42205597";
+$password = "IjQQBQRnpbyN6SS";
+$database = "if0_42205597_shanti_asih";
+
+$conn = mysqli_connect(
+    $host,
+    $user,
+    $password,
+    $database
+);
 
 if (!$conn) {
-    die("Koneksi database gagal: " . mysqli_connect_error());
+    die("Koneksi gagal: " . mysqli_connect_error());
 }
-?>
